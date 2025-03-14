@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,15 +45,18 @@ INSTALLED_APPS = [
 ]
 
 # Import configure and initialize Sentry SDK
-import sentry_sdk
-
 sentry_sdk.init(
     dsn="https://d655584d05f14c58b86e9034aab6817f@o447951.ingest.us.sentry.io/5461230",
-    release=os.environ.get("VERSION"),
     environment="Production",
-    # Set traces_sample_rate to 1.0 to capture 100% of traces.
-    # We recommend adjusting this value in production.
     traces_sample_rate=1.0,
+    integrations=[
+        DjangoIntegration(),
+        LoggingIntegration(
+            level=logging.INFO,
+            event_level=logging.ERROR
+        ),
+    ],
+    send_default_pii=True
 )
 
 MIDDLEWARE = [
