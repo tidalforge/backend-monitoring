@@ -47,16 +47,29 @@ INSTALLED_APPS = [
 # Import configure and initialize Sentry SDK
 sentry_sdk.init(
     dsn="https://d655584d05f14c58b86e9034aab6817f@o447951.ingest.us.sentry.io/5461230",
+    release=os.environ.get("VERSION"),
     environment="Production",
+    
+    # Enable performance monitoring
     traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+    
+    # Configure integrations
     integrations=[
-        DjangoIntegration(),
+        DjangoIntegration(
+            transaction_style='url',
+            middleware_spans=True,
+            signals_spans=True,
+        ),
         LoggingIntegration(
             level=logging.INFO,
             event_level=logging.ERROR
         ),
     ],
-    send_default_pii=True
+    
+    # Enable request bodies in error reports
+    send_default_pii=True,
+    
 )
 
 MIDDLEWARE = [
