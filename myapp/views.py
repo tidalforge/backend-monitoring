@@ -121,3 +121,8 @@ class CaptureMessageView(APIView):
         sentry_sdk.capture_message("You caught me!", "fatal")
 
         return Response()
+
+class ErrorMasterView(APIView):
+    def get(self, request):
+        division_by_zero = 1 / 0
+        return Response(division_by_zero)

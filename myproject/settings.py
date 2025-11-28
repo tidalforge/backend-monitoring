@@ -44,12 +44,21 @@ INSTALLED_APPS = [
 import sentry_sdk
 
 sentry_sdk.init(
-    dsn="https://d655584d05f14c58b86e9034aab6817f@o447951.ingest.us.sentry.io/5461230",
-    release=os.environ.get("VERSION"),
-    environment="Production",
-    # Set traces_sample_rate to 1.0 to capture 100% of traces.
-    # We recommend adjusting this value in production.
+    dsn="https://8b7a76c153772227d4a6bb9c93abf36b@o4510441375858688.ingest.us.sentry.io/4510441378152448",
+    # Add data like request headers and IP for users;
+    # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+    send_default_pii=True,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
     traces_sample_rate=1.0,
+    # To collect profiles for all profile sessions,
+    # set `profile_session_sample_rate` to 1.0.
+    profile_session_sample_rate=1.0,
+    # Profiles will be automatically collected while
+    # there is an active span.
+    profile_lifecycle="trace",
+    # Enable logs to be sent to Sentry
+    enable_logs=True,
 )
 
 MIDDLEWARE = [

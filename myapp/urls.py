@@ -5,7 +5,7 @@ from .views import (
     InventoreyView,
     HandledErrorView,
     UnHandledErrorView,
-    CaptureMessageView,
+    CaptureMessageView, ErrorMasterView,
 )
 
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path("handled", HandledErrorView.as_view()),
     path("unhandled", UnHandledErrorView.as_view()),
     path("message", CaptureMessageView.as_view()),
+    path("sentry-debug", ErrorMasterView.as_view()),
 ]
