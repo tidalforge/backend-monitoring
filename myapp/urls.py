@@ -8,8 +8,10 @@ from .views import (
     CaptureMessageView, ErrorMasterView,
 )
 
-
+def trigger_error(request):
+    division_by_zero = 1 / 0
 urlpatterns = [
+    path('sentry-debug2/', trigger_error),
     path("checkout", InventoreyView.as_view()),
     path("handled", HandledErrorView.as_view()),
     path("unhandled", UnHandledErrorView.as_view()),
