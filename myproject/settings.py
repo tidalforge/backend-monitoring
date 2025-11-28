@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 import sentry_sdk
 
 sentry_sdk.init(
-    dsn="https://8b7a76c153772227d4a6bb9c93abf36b@o4510441375858688.ingest.us.sentry.io/4510441378152448",
+    dsn="https://11649e36609c38edd815314df814bd93@o4510441375858688.ingest.us.sentry.io/4510441952116736",
     # Add data like request headers and IP for users;
     # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
     send_default_pii=True,
